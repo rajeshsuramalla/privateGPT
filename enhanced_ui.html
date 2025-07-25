@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced PrivateGPT - Web UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 1200px;
+            width: 90%;
+            min-height: 80vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            display: flex;
+            height: calc(80vh - 120px);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+
+        .login-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-section h3 {
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .user-info {
+            background: #e8f5e8;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-info h4 {
+            color: #28a745;
+            margin-bottom: 0.5rem;
+        }
+
+        .models-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .models-section h4 {
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        .chat-messages {
+            flex: 1;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1rem;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .message.user {
+            background: #e3f2fd;
+            margin-left: 20%;
+        }
+
+        .message.assistant {
+            background: #f3e5f5;
+            margin-right: 20%;
+        }
+
+        .message .sender {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .demo-users {
+            background: #fff3cd;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ffc107;
+        }
+
+        .demo-users h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .demo-users code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .status {
+            padding: 0.5rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Enhanced PrivateGPT</h1>
+            <p>Role-based access control with multi-model support</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <!-- Login Section -->
+                <div id="loginSection" class="login-section">
+                    <h3>🔑 Login</h3>
+                    
+                    <div class="demo-users">
+                        <h4>🎯 Demo Users:</h4>
+                        <p><strong>SuperAdmin:</strong><br>
+                           Username: <code>superadmin</code><br>
+                           Password: <code>admin123!</code></p>
+                        <p><strong>Admin:</strong><br>
+                           Username: <code>admin</code><br>
+                           Password: <code>admin123!</code></p>
+                        <p><strong>User:</strong><br>
+                           Username: <code>user</code><br>
+                           Password: <code>user123!</code></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" placeholder="Enter username">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" placeholder="Enter password">
+                    </div>
+                    
+                    <button class="btn" onclick="login()">🚀 Login</button>
+                </div>
+
+                <!-- User Info Section (hidden initially) -->
+                <div id="userSection" class="user-info hidden">
+                    <h4 id="userWelcome">👑 Welcome!</h4>
+                    <p id="userRole">Role: SuperAdmin</p>
+                    <p id="userModels">Models: 7 available</p>
+                    <button class="btn btn-secondary" onclick="logout()">🚪 Logout</button>
+                </div>
+
+                <!-- Models Section -->
+                <div id="modelsSection" class="models-section hidden">
+                    <h4>🤖 Available Models</h4>
+                    <div class="form-group">
+                        <label for="modelSelect">Select Model:</label>
+                        <select id="modelSelect">
+                            <option value="">Loading models...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div id="uploadSection" class="hidden">
+                    <h4>📄 Upload Documents</h4>
+                    <div class="form-group">
+                        <input type="file" id="fileInput" multiple accept=".txt,.pdf,.docx,.md">
+                    </div>
+                    <button class="btn" onclick="uploadFiles()">📤 Upload</button>
+                </div>
+            </div>
+
+            <div class="chat-area">
+                <div id="statusArea"></div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant">
+                        <div class="sender">🤖 Enhanced PrivateGPT</div>
+                        <div>Welcome! Please login to start chatting with role-based access control and multi-model support.</div>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message here..." disabled>
+                    <button class="btn" id="sendButton" onclick="sendMessage()" disabled>📤 Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const API_BASE = 'http://localhost:8003';
+        let currentToken = null;
+        let currentUser = null;
+        let availableModels = [];
+
+        // Authentication Functions
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                showStatus('Please enter username and password', 'error');
+                return;
+            }
+
+            try {
+                console.log('Attempting login for:', username);
+                const response = await fetch(`${API_BASE}/v1/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                console.log('Login response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Login successful, user data:', data);
+                    currentToken = data.access_token;
+                    currentUser = data.user;
+                    
+                    showUserSection();
+                    await loadModels();
+                    showStatus('Login successful!', 'success');
+                } else {
+                    const errorText = await response.text();
+                    console.error('Login failed:', response.status, errorText);
+                    let errorMessage = 'Login failed';
+                    try {
+                        const errorData = JSON.parse(errorText);
+                        errorMessage = errorData.detail || 'Login failed';
+                    } catch (e) {
+                        errorMessage = errorText || 'Login failed';
+                    }
+                    showStatus(errorMessage, 'error');
+                }
+            } catch (error) {
+                console.error('Network error during login:', error);
+                showStatus('Network error: ' + error.message, 'error');
+            }
+        }
+
+        function logout() {
+            currentToken = null;
+            currentUser = null;
+            availableModels = [];
+            
+            hideUserSection();
+            showStatus('Logged out successfully', 'success');
+            clearChat();
+        }
+
+        function showUserSection() {
+            // Hide login section
+            document.getElementById('loginSection').classList.add('hidden');
+            
+            // Show user info
+            const userSection = document.getElementById('userSection');
+            const modelsSection = document.getElementById('modelsSection');
+            const uploadSection = document.getElementById('uploadSection');
+            
+            userSection.classList.remove('hidden');
+            modelsSection.classList.remove('hidden');
+            uploadSection.classList.remove('hidden');
+            
+            // Update user info
+            const roleEmoji = { superadmin: '👑', admin: '🛡️', user: '👤' };
+            const emoji = roleEmoji[currentUser.role] || '👤';
+            
+            document.getElementById('userWelcome').textContent = `${emoji} Welcome, ${currentUser.username}!`;
+            document.getElementById('userRole').textContent = `Role: ${currentUser.role}`;
+            
+            // Enable chat input
+            document.getElementById('messageInput').disabled = false;
+            document.getElementById('sendButton').disabled = false;
+        }
+
+        function hideUserSection() {
+            // Show login section
+            document.getElementById('loginSection').classList.remove('hidden');
+            
+            // Hide user sections
+            document.getElementById('userSection').classList.add('hidden');
+            document.getElementById('modelsSection').classList.add('hidden');
+            document.getElementById('uploadSection').classList.add('hidden');
+            
+            // Disable chat input
+            document.getElementById('messageInput').disabled = true;
+            document.getElementById('sendButton').disabled = true;
+        }
+
+        // Models Functions
+        async function loadModels() {
+            try {
+                console.log('Loading models with token:', currentToken ? 'present' : 'missing');
+                const response = await fetch(`${API_BASE}/v1/chat/models`, {
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                console.log('Models response status:', response.status);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Models data received:', data);
+                    availableModels = data.models || [];
+                    
+                    const modelSelect = document.getElementById('modelSelect');
+                    modelSelect.innerHTML = '';
+                    
+                    if (availableModels.length === 0) {
+                        const option = document.createElement('option');
+                        option.value = '';
+                        option.textContent = 'No models available';
+                        modelSelect.appendChild(option);
+                        showStatus('No models available for your role', 'error');
+                        return;
+                    }
+                    
+                    availableModels.forEach(model => {
+                        const option = document.createElement('option');
+                        option.value = `${model.provider}:${model.name}`;
+                        option.textContent = `${model.provider}: ${model.name}`;
+                        modelSelect.appendChild(option);
+                    });
+                    
+                    // Update user models count
+                    document.getElementById('userModels').textContent = `Models: ${availableModels.length} available`;
+                    
+                    // Select first model by default
+                    if (availableModels.length > 0) {
+                        modelSelect.value = `${availableModels[0].provider}:${availableModels[0].name}`;
+                    }
+                    
+                    console.log('Models loaded successfully:', availableModels.length);
+                } else {
+                    const errorText = await response.text();
+                    console.error('Failed to load models:', response.status, errorText);
+                    showStatus('Failed to load models: ' + response.status, 'error');
+                    
+                    // Show error in dropdown
+                    const modelSelect = document.getElementById('modelSelect');
+                    modelSelect.innerHTML = '<option value="">Error loading models</option>';
+                }
+            } catch (error) {
+                console.error('Error loading models:', error);
+                showStatus('Error loading models: ' + error.message, 'error');
+                
+                // Show error in dropdown
+                const modelSelect = document.getElementById('modelSelect');
+                modelSelect.innerHTML = '<option value="">Network error</option>';
+            }
+        }
+
+        // Chat Functions
+        async function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            const selectedModel = document.getElementById('modelSelect').value;
+
+            if (!message) return;
+            if (!selectedModel) {
+                showStatus('Please select a model', 'error');
+                return;
+            }
+
+            // Add user message to chat
+            addMessage('user', message);
+            messageInput.value = '';
+
+            // Add typing indicator
+            const typingId = addMessage('assistant', '🤔 Thinking...');
+
+            try {
+                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: message }],
+                        model: selectedModel,
+                        stream: false
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const assistantMessage = data.choices[0].message.content;
+                    
+                    // Replace typing indicator with actual response
+                    updateMessage(typingId, assistantMessage);
+                } else {
+                    const errorData = await response.json();
+                    updateMessage(typingId, '❌ Error: ' + (errorData.detail || 'Chat request failed'));
+                }
+            } catch (error) {
+                updateMessage(typingId, '❌ Network error: ' + error.message);
+            }
+        }
+
+        function addMessage(sender, content) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageId = 'msg_' + Date.now();
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.id = messageId;
+            
+            const senderEmoji = sender === 'user' ? '👤' : '🤖';
+            const senderName = sender === 'user' ? 'You' : 'Enhanced PrivateGPT';
+            
+            messageDiv.innerHTML = `
+                <div class="sender">${senderEmoji} ${senderName}</div>
+                <div class="content">${content}</div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            return messageId;
+        }
+
+        function updateMessage(messageId, content) {
+            const messageDiv = document.getElementById(messageId);
+            if (messageDiv) {
+                const contentDiv = messageDiv.querySelector('.content');
+                contentDiv.textContent = content;
+            }
+        }
+
+        function clearChat() {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = `
+                <div class="message assistant">
+                    <div class="sender">🤖 Enhanced PrivateGPT</div>
+                    <div>Welcome! Please login to start chatting with role-based access control and multi-model support.</div>
+                </div>
+            `;
+        }
+
+        // File Upload Functions
+        async function uploadFiles() {
+            const fileInput = document.getElementById('fileInput');
+            const files = fileInput.files;
+
+            if (!files.length) {
+                showStatus('Please select files to upload', 'error');
+                return;
+            }
+
+            for (let file of files) {
+                try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+
+                    const response = await fetch(`${API_BASE}/v1/ingest/files`, {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${currentToken}`
+                        },
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        showStatus(`✅ ${file.name} uploaded successfully`, 'success');
+                    } else {
+                        const errorData = await response.json();
+                        showStatus(`❌ Failed to upload ${file.name}: ${errorData.detail}`, 'error');
+                    }
+                } catch (error) {
+                    showStatus(`❌ Upload error for ${file.name}: ${error.message}`, 'error');
+                }
+            }
+
+            // Clear file input
+            fileInput.value = '';
+        }
+
+        // Utility Functions
+        function showStatus(message, type) {
+            const statusArea = document.getElementById('statusArea');
+            statusArea.innerHTML = `<div class="status ${type}">${message}</div>`;
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                statusArea.innerHTML = '';
+            }, 5000);
+        }
+
+        // Event Listeners
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Initialize
+        console.log('Enhanced PrivateGPT Web UI loaded');
+        console.log('Server running on:', API_BASE);
+    </script>
+</body>
+</html>
