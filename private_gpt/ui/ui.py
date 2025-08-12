@@ -387,11 +387,24 @@ class PrivateGptUi:
             ".footer { text-align: center; margin-top: 20px; font-size: 14px; display: flex; align-items: center; justify-content: center; }"
             ".footer-zylon-link { display:flex; margin-left: 5px; text-decoration: auto; color: var(--body-text-color); }"
             ".footer-zylon-link:hover { color: #C7BAFF; }"
-            ".footer-zylon-ico { height: 20px; margin-left: 5px; background-color: antiquewhite; border-radius: 2px; }",
+            ".footer-zylon-ico { height: 20px; margin-left: 5px; background-color: antiquewhite; border-radius: 2px; }"
+            ".main-header { "
+            "display:flex;"
+            "background-color: #C7BAFF;"
+            "height: 80px;"
+            "border-radius: 8px;"
+            "align-content: center;"
+            "justify-content: center;"
+            "align-items: center;"
+            "color: #2D3748;"
+            "font-size: 24px;"
+            "font-weight: 700;"
+            "text-align: center;"
+            "margin-bottom: 20px;"
+            "}",
         ) as blocks:
             with gr.Row():
-                gr.HTML(f"<div class='logo'/><img src={logo_svg} alt=PrivateGPT></div")
-
+                gr.HTML("<div class='main-header'>Your Enterprise. Your AI. Your Rules.</div>")
             with gr.Row(equal_height=False):
                 with gr.Column(scale=3):
                     default_mode = self._default_mode

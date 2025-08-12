@@ -47,7 +47,7 @@ ui:
   delete_all_files_button_enabled: true
 
 llm:
-  mode: llamacpp
+  mode: ollama
   prompt_style: "llama3"
   # Should be matching the selected model
   max_new_tokens: 512
@@ -86,7 +86,7 @@ llamacpp:
 
 embedding:
   # Should be matching the value above in most cases
-  mode: huggingface
+  mode: ollama
   ingest_mode: simple
   embed_dim: 768 # 768 is for nomic-ai/nomic-embed-text-v1.5
 

@@ -1,19 +1,24 @@
 """FastAPI app creation, logger configuration and main API routes."""
 
 import logging
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from injector import Injector
 from llama_index.core.callbacks import CallbackManager
 from llama_index.core.callbacks.global_handlers import create_global_handler
 from llama_index.core.settings import Settings as LlamaIndexSettings
 
+from private_gpt.constants import PROJECT_ROOT_PATH
 from private_gpt.server.chat.chat_router import chat_router
 from private_gpt.server.chunks.chunks_router import chunks_router
 from private_gpt.server.completions.completions_router import completions_router
 from private_gpt.server.embeddings.embeddings_router import embeddings_router
 from private_gpt.server.health.health_router import health_router
+from private_gpt.server.html_ui.html_ui_router import HtmlUiApiRouter
 from private_gpt.server.ingest.ingest_router import ingest_router
 from private_gpt.server.recipes.summarize.summarize_router import summarize_router
 from private_gpt.settings.settings import Settings
@@ -36,6 +41,25 @@ def create_app(root_injector: Injector) -> FastAPI:
     app.include_router(summarize_router)
     app.include_router(embeddings_router)
     app.include_router(health_router)
+
+    # Add HTML UI API endpoints
+    html_ui_router = root_injector.get(HtmlUiApiRouter)
+    app.include_router(html_ui_router.router)
+
+    # Serve the HTML UI static files
+    ui_path = PROJECT_ROOT_PATH / "private_gpt" / "ui"
+    if ui_path.exists():
+        # Mount static files directory
+        app.mount("/static", StaticFiles(directory=str(ui_path)), name="static")
+        
+        # Serve the main HTML UI at /html
+        @app.get("/html")
+        async def serve_html_ui():
+            html_file = ui_path / "index.html"
+            if html_file.exists():
+                return FileResponse(str(html_file))
+            else:
+                return {"error": "HTML UI file not found"}
 
     # Add LlamaIndex simple observability
     global_handler = create_global_handler("simple")
