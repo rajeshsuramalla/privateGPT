@@ -1,0 +1,72 @@
+PREDICTIVE ANALYTICS REPORT - Device 3.0
+Generated: 2025-08-21 19:15:26
+
+========================================
+📊 OPERATIONAL PERFORMANCE SUMMARY
+========================================
+
+Device 3.0 Analysis:
+• Total Data Points: 50,000
+• Operational Range: -6.80 to 91.18 (Range: 97.98)
+• Performance Mean: 41.49 ± 29.84
+• Median Value: 58.40
+
+📈 STATISTICAL CONTROL ANALYSIS:
+• Control Limits: -48.02 to 130.99
+• Control Status: In Control
+• Out-of-Control Points: 0
+
+🎯 PROCESS CAPABILITY:
+• Cp (Process Capability): 0.441
+• Cpk (Capability Index): 0.351
+• Assessment: Poor - Immediate process improvement required
+
+📊 TREND ANALYSIS:
+• Direction: Upward trend detected
+• Strength: Strong
+• Volatility: Decreasing
+• Pattern: No significant cyclical patterns detected
+
+🔮 PREDICTIVE FORECASTING:
+• Trend Slope: 0.679625 units per reading
+• Next Reading Prediction: 67.58
+• 50-Reading Average Forecast: 84.23
+• Confidence Level: High
+
+🔧 MAINTENANCE INSIGHTS:
+• Increasing trend detected - monitor for potential overheating/pressure build-up
+• Anomaly Forecast: Normal operational variability expected
+
+⚠️ RISK ASSESSMENT:
+• Risk Level: MEDIUM RISK
+• Risk Score: 40/100
+• Recommended Action: Increased monitoring and planned maintenance
+
+• Critical Risk Factors:
+  - High process variability
+  - Process capability below acceptable threshold
+
+
+📋 OPERATIONAL RECOMMENDATIONS:
+
+1. IMMEDIATE ACTIONS:
+   • Increased monitoring and planned maintenance
+   • Monitor for values outside control limits (-48.0 - 131.0)
+
+2. PREDICTIVE MAINTENANCE:
+   • Based on trend analysis: Increasing trend detected - monitor for potential overheating/pressure build-up
+   • Schedule inspection if risk level is MEDIUM or HIGH
+
+3. OPTIMIZATION OPPORTUNITIES:
+   • Target operational range: -3.1 - 64.5 (IQR)
+   • Focus on reducing variability if std > 4.1
+
+4. MONITORING PRIORITIES:
+   • Watch for trend changes (current slope: 0.679625)
+   • Alert if volatility increases beyond current levels
+   • Track process capability metrics
+
+========================================
+DEVICE STATUS: MEDIUM RISK
+NEXT REVIEW: 2025-08-28
+========================================

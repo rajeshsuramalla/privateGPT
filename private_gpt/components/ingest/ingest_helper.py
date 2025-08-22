@@ -6,6 +6,9 @@ from llama_index.core.readers.base import BaseReader
 from llama_index.core.readers.json import JSONReader
 from llama_index.core.schema import Document
 
+# Import our intelligent CSV reader
+from private_gpt.components.ingest.intelligent_csv_reader import IntelligentCSVReader
+
 logger = logging.getLogger(__name__)
 
 
@@ -42,7 +45,7 @@ def _try_loading_included_file_formats() -> dict[str, type[BaseReader]]:
         ".jpeg": ImageReader,
         ".mp3": VideoAudioReader,
         ".mp4": VideoAudioReader,
-        ".csv": PandasCSVReader,
+        ".csv": IntelligentCSVReader,
         ".epub": EpubReader,
         ".md": MarkdownReader,
         ".mbox": MboxReader,

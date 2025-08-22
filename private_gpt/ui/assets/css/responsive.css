@@ -1,0 +1,133 @@
+/* Responsive Design - Media Queries */
+
+/* Tablet and smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .sidebar {
+        width: 100%;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .header-text {
+        text-align: center;
+    }
+    
+    .header-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .mode-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .message-content {
+        max-width: 85%;
+    }
+
+    .chat-controls {
+        flex-wrap: wrap;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .container {
+        margin: 15px auto;
+        padding: 0 10px;
+    }
+
+    .sidebar,
+    .main-content {
+        padding: 10px;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .header p {
+        font-size: 1rem;
+    }
+
+    .message-content {
+        max-width: 95%;
+        padding: 12px 16px;
+    }
+
+    .mode-btn {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .upload-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .send-btn {
+        padding: 12px 20px;
+    }
+
+    .input-field {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+    }
+
+    .notification {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1600px;
+    }
+
+    .sidebar {
+        width: 380px;
+    }
+
+    .header h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    :root {
+        --border-color: #000000;
+        --text-primary: #000000;
+        --text-secondary: #333333;
+    }
+
+    [data-theme="dark"] {
+        --border-color: #ffffff;
+        --text-primary: #ffffff;
+        --text-secondary: #cccccc;
+    }
+}

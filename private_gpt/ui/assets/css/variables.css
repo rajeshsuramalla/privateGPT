@@ -1,0 +1,56 @@
+/* CSS Custom Properties - Theme Variables */
+:root {
+    /* Light mode colors - Modern Gradient Theme */
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --surface-bg: rgba(255, 255, 255, 0.95);
+    --text-primary: #2D3748;
+    --text-secondary: #4A5568;
+    --text-muted: #A0AEC0;
+    --border-color: #E2E8F0;
+    --hover-bg: #F7FAFC;
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --accent-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #fcb69f;
+    --success-color: #84fab0;
+    --warning-color: #ffd89b;
+    --error-color: #ff8a95;
+    --chat-user-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --chat-assistant-bg: white;
+    --input-bg: white;
+    --notification-success: #84fab0;
+    --notification-error: #ff8a95;
+    --notification-info: #8fd3f4;
+}
+
+[data-theme="dark"] {
+    /* Dark mode colors - Elegant Dark Theme */
+    --bg-gradient-start: #2d1b69;
+    --bg-gradient-end: #11998e;
+    --surface-bg: rgba(45, 55, 72, 0.95);
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --text-muted: #a0aec0;
+    --border-color: #4a5568;
+    --hover-bg: #2d3748;
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --accent-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    --success-gradient: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    --primary-color: #8B5FBF;
+    --secondary-color: #667eea;
+    --accent-color: #fed6e3;
+    --success-color: #84fab0;
+    --warning-color: #ffd89b;
+    --error-color: #ff8a95;
+    --chat-user-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --chat-assistant-bg: #4a5568;
+    --input-bg: #4a5568;
+    --notification-success: #84fab0;
+    --notification-error: #ff8a95;
+    --notification-info: #8fd3f4;
+}

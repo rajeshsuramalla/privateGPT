@@ -1,0 +1,53 @@
+ENGINEERING ANALYSIS
+
+========================================
+🔧 ENGINEERING ANALYSIS
+========================================
+
+Equipment Information:
+• Device ID: 3.0
+• Trend Log SID: 4.0
+• Engineering Unit ID: 64.0
+• Measurement Type: Continuous Process Variable
+
+Rate of Change Analysis:
+• Maximum Positive Change: 84.644 units/reading
+• Maximum Negative Change: -82.069 units/reading
+• Average Change Rate: 9.709 units/reading
+• Stability Index (CV): 0.719 (Unstable)
+
+Operating Ranges:
+• Normal Operating Range (±1σ): 11.65 to 71.32
+• Acceptable Range (±2σ): -18.18 to 101.16
+• Alert Threshold (±3σ): -48.02 to 130.99
+
+Performance Metrics:
+• Process Capability Estimate: 1.827
+• Signal-to-Noise Ratio: 1.39
+• Dynamic Range: 236.2% of mean
+
+
+========================================
+📊 ADVANCED STATISTICAL ANALYSIS
+========================================
+
+Distribution Characteristics:
+• Skewness: -0.774 (Left-skewed)
+• Kurtosis: -1.193 (Light-tailed)
+• Normality Test (Shapiro-Wilk): p-value = 0.000000 (Non-normal distribution)
+
+Percentile Analysis:
+• 1th percentile: -6.101
+• 5th percentile: -5.500
+• 10th percentile: -4.800
+• 25th percentile: -3.100
+• 50th percentile: 58.403
+• 75th percentile: 64.528
+• 90th percentile: 67.523
+• 95th percentile: 69.178
+• 99th percentile: 72.930
+
+Moving Average Analysis:
+• 100-point MA: Current = -4.887, Trend = Increasing
+• 500-point MA: Current = -4.600, Trend = Decreasing
+• 1000-point MA: Current = -4.499, Trend = Increasing

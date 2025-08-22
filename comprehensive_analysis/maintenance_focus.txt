@@ -1,0 +1,64 @@
+MAINTENANCE-FOCUSED ANALYSIS
+
+========================================
+🔧 PREDICTIVE MAINTENANCE RECOMMENDATIONS
+========================================
+
+Current Status Assessment:
+• Overall Trend: Stable (-0.0005 units/reading)
+• Variability Change: -96.4% vs historical average
+• Risk Level: HIGH
+
+Maintenance Actions:
+
+IMMEDIATE (Next 7 days):
+• URGENT: Process variability changed by -96.4% - check equipment condition
+
+SHORT TERM (Next 30 days):
+• Review process control parameters - high variability detected
+• Verify sensor calibration
+• Check data logging system integrity
+
+LONG TERM (Next 90 days):
+• Establish baseline performance metrics
+• Implement automated anomaly detection
+• Schedule preventive maintenance based on trends
+
+Predictive Forecast (Next 30 readings):
+• Expected Range: -5.02 to -5.00
+• Trend Direction: Downward
+
+
+========================================
+🔍 OPERATIONAL INSIGHTS & ANOMALIES
+========================================
+
+Control Chart Analysis:
+• Center Line (Mean): 41.487
+• Upper Control Limit (+3σ): 130.993
+• Lower Control Limit (-3σ): -48.019
+• Total Out-of-Control Points: 0 (0.00%)
+• High Anomalies (>131.0): 0
+• Low Anomalies (<-48.0): 0
+
+Process Stability:
+• Longest Run Above/Below Mean: 17039 consecutive points
+• Process Status: Stable
+
+Value Zones Analysis:
+• Zone A (>2σ): 0 points (0.0%)
+• Zone B (1-2σ): 1132 points
+• Zone C (0-1σ): 34556 points
+• Normal Zone: 34580 points (69.2%)
+
+Trend Analysis (10 segments):
+• Segment 1: Slope = 0.0004 (Stable)
+• Segment 2: Slope = 0.0004 (Stable)
+• Segment 3: Slope = 0.0001 (Stable)
+• Segment 4: Slope = -0.0003 (Stable)
+• Segment 5: Slope = -0.0079 (Stable)
+• Segment 6: Slope = 0.0146 (Increasing)
+• Segment 7: Slope = -0.0010 (Stable)
+• Segment 8: Slope = -0.0005 (Stable)
+• Segment 9: Slope = -0.0040 (Stable)
+• Segment 10: Slope = -0.0143 (Decreasing)

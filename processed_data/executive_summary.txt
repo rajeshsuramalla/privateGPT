@@ -1,0 +1,25 @@
+EXECUTIVE SUMMARY - DEVICE MONITORING REPORT
+Generated: 2025-08-21 18:52:30
+
+FLEET OVERVIEW:
+- Total Devices Monitored: 1
+- High Risk Devices (>10% anomalies): 0
+- Medium Risk Devices (5-10% anomalies): 0
+- Normal Operation Devices: 1
+
+CRITICAL ALERTS:
+✅ No high-risk devices identified.
+
+TREND ANALYSIS:
+📊 All monitored devices showing stable patterns.
+
+RECOMMENDATIONS:
+1. Schedule immediate inspection for 0 high-risk devices
+2. Increase monitoring frequency for 0 medium-risk devices
+3. Continue standard monitoring for 1 normal devices
+4. Review trending patterns for 0 devices showing directional changes
+
+NEXT ACTIONS:
+- Prioritize maintenance for devices with >10% anomaly rates
+- Investigate root cause of trending patterns
+- Update alert thresholds based on operational requirements
